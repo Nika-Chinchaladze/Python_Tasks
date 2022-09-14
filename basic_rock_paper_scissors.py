@@ -32,33 +32,36 @@ items = [rock, paper, scissors]
 indexes = [0, 1, 2]
 # gamer
 my_number = int(input("my choise: "))
-my_choice = items[my_number]
-print(my_choice)
-# computer
-comp_choice = rd.choice(indexes)
-print("Computer chose:")
-print(items[comp_choice])
+if my_number <= 2:
+    my_choice = items[my_number]
+    print(my_choice)
+    # computer
+    comp_choice = rd.choice(indexes)
+    print("Computer chose:")
+    print(items[comp_choice])
 
-if my_number == 0:
-    if comp_choice == 0:
-        print("Equal Results!")
-    elif comp_choice == 1:
-        print("Computer Won, You Lose!")
-    elif comp_choice == 2:
-        print("You Won, Computer Lose!")
+    if my_number == 0:
+        if comp_choice == 0:
+            print("Equal Results!")
+        elif comp_choice == 1:
+            print("Computer Won, You Lose!")
+        elif comp_choice == 2:
+            print("You Won, Computer Lose!")
 
-elif my_number == 1:
-    if comp_choice == 0:
-        print("You Won, Computer Lose!")
-    elif comp_choice == 1:
-        print("Equal Results!")
-    elif comp_choice == 2:
-        print("Computer Won, You Lose!")
+    elif my_number == 1:
+        if comp_choice == 0:
+            print("You Won, Computer Lose!")
+        elif comp_choice == 1:
+            print("Equal Results!")
+        elif comp_choice == 2:
+            print("Computer Won, You Lose!")
 
-elif my_number == 2:
-    if comp_choice == 0:
-        print("Computer Won, You Lose!")
-    elif comp_choice == 1:
-        print("You Won, Computer Lose!")
-    elif comp_choice == 2:
-        print("Equal Results!")
+    elif my_number == 2:
+        if comp_choice == 0:
+            print("Computer Won, You Lose!")
+        elif comp_choice == 1:
+            print("You Won, Computer Lose!")
+        elif comp_choice == 2:
+            print("Equal Results!")
+else:
+    print("Please enter only 0, 1 or 2!")

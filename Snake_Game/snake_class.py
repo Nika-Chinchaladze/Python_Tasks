@@ -40,6 +40,11 @@ class Snake:
             if self.snake_head.distance(snk) < 5:
                 return True
 
+    def reset_snake(self):
+        for child in self.snake_list:
+            child.setposition(1000, 1000)
+        self.snake_list = []
+
     def up(self):
         if self.snake_head.heading() != DOWN:
             self.snake_head.setheading(UP)

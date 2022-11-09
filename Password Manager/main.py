@@ -1,3 +1,4 @@
+import json.decoder
 from tkinter import *
 from tkinter import messagebox
 from PIL import Image, ImageTk
@@ -43,9 +44,9 @@ class Password:
         self.password_label = Label(self.below_frame, text="Password:", font=LABEL_FONT, bg="white")
         self.password_label.grid(row=2, column=0)
         # Entries:
-        self.website_entry = Entry(self.below_frame, font=LABEL_FONT, width=46, justify="center", bd=2,
+        self.website_entry = Entry(self.below_frame, font=LABEL_FONT, width=26, justify="center", bd=2,
                                    textvariable=self.website_name)
-        self.website_entry.grid(row=0, column=1, columnspan=2, pady=5)
+        self.website_entry.grid(row=0, column=1, pady=5)
         self.website_entry.focus()
 
         self.email_entry = Entry(self.below_frame, font=LABEL_FONT, width=46, justify="center", bd=2,
@@ -58,6 +59,10 @@ class Password:
         self.password_entry.grid(row=2, column=1, pady=5)
 
         # Buttons:
+        self.search_button = Button(self.below_frame, text="Search", font=LABEL_FONT, width=16,
+                                    bg="pale green", command=self.search_website_password)
+        self.search_button.grid(row=0, column=2, pady=5)
+
         self.generate_button = Button(self.below_frame, text="Generate Password", font=LABEL_FONT, width=16,
                                       bg="light gray", command=self.generate_password)
         self.generate_button.grid(row=2, column=2, pady=5)
@@ -76,11 +81,15 @@ class Password:
                                                                            f"\nPassword: {self.pass_name.get()} "
                                                                            f"\nAre you sure to save?")
             if confirm:
-                hand.append_text(self.website_name.get(), self.email_name.get(), self.pass_name.get())
-                self.website_entry.delete(0, END)
-                self.email_entry.delete(0, END)
-                self.password_entry.delete(0, END)
-                messagebox.showinfo(title="About Save", message="Information Has Been Added, Successfully!")
+                try:
+                    hand.update_json(self.website_name.get(), self.email_name.get(), self.pass_name.get())
+                except FileNotFoundError:
+                    hand.create_append_text(self.website_name.get(), self.email_name.get(), self.pass_name.get())
+                finally:
+                    self.website_entry.delete(0, END)
+                    self.email_entry.delete(0, END)
+                    self.password_entry.delete(0, END)
+                    messagebox.showinfo(title="About Save", message="Information Has Been Added, Successfully!")
             else:
                 pass
         else:
@@ -92,6 +101,20 @@ class Password:
         self.password_entry.delete(0, END)
         self.password_entry.insert(END, new_password)
         pyperclip.copy(new_password)
+
+    def search_website_password(self):
+        want = WorkFile()
+        try:
+            information = want.read_json(self.website_name.get())
+            messagebox.showinfo(title=self.website_name.get(), message=f"Email: {information['email']} "
+                                                                       f"\nPassword: {information['password']}")
+        except KeyError as key_name:
+            messagebox.showwarning(title="Oops", message=f"{key_name} is not among websites!")
+        except json.decoder.JSONDecodeError:
+            messagebox.showwarning(title="Oops", message="File is empty!")
+        except FileNotFoundError:
+            want.just_create_json()
+            messagebox.showwarning(title="Oops", message="File does not exist, We are creating it for you")
 
 
 def launch_program():

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Index Page{% endblock %}
+
+{% block css_styles %}
+    <link rel="stylesheet" href="{% static 'challenges/local_index.css' %}">
+    <link rel="stylesheet" href="{% static 'challenges/includes/header.css' %}">
+{% endblock %}
+
+{% block content %}
+{% include "challenges/includes/header.html" with current_page="INDEX PAGE" %}
+
+    <div>
+        <ul>
+            {% for activity in activity_list %}
+                <li><a href="{% url 'month_handle_page' month=activity %}">{{ activity | title }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+{% endblock %}

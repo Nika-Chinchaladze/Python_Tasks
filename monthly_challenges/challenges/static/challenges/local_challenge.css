@@ -1,0 +1,19 @@
+h2, h3 {
+    text-align: center;
+}
+h2 {
+    font-size: 1.5rem;
+    margin: 2rem 0 1rem;
+    font-weight: normal;
+    color: #cf54a6;
+}
+h3 {
+    font-size: 3rem;
+    font-weight: bold;
+}
+.fallback {
+    text-align: center;
+    color: rgb(55, 13, 102);
+    font-size: 3rem;
+    font-weight: bold;
+}

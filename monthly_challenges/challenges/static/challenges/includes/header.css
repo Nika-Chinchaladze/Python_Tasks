@@ -1,0 +1,22 @@
+header {
+    width: 100%;
+    height: 5rem;
+    background-color: #353535;
+    color: aliceblue;
+}
+header nav {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px;
+}
+header nav a {
+    color: aliceblue;
+    text-decoration: none;
+}
+header nav a:hover, header nav a:active {
+    color: gold;
+}
